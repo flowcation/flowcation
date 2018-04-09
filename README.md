@@ -1,9 +1,25 @@
 # Flowcation
 
-Generate Views from static Html files.   
+# This is pre-alpha. Don't use just yet :)
+
+Generate Views from static Html.   
+Flowcation enables Designers to work on a rails apps layout without installing ruby and rails locally.  
+This is also useful for Themes purchased from a marketplace like themeforest.   
+The time-consuming integration can be almost entirely omitted.   
+The one-off effort of mapping layouts, templates, partials and subtitutions via xpath declarations allows to transfer further, at least minor, changes automatically.
 
 
 ## Installation
+
+### Prerequisites
+
+Flowcation depends on Nokogiri (1.8.2) and ActiveSupport. 
+
+### Basic
+
+	$ gem install flowcation
+
+### Bundler
 
 Add this line to your application's Gemfile:
 
@@ -14,14 +30,19 @@ gem 'flowcation'
 And then execute:
 
     $ bundle
+	
+### Rails
 
-Or install it yourself as:
+After installing via Bundler, execute 
 
-    $ gem install flowcation
+	$ rails g flowcation:install
+	
+This creates a folder 'flowcation' inside the config with a barebone rails.yml file.
+
 
 ## Usage
 
-TODO: Write usage instructions here
+
 
 ## Development
 
