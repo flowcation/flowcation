@@ -2,7 +2,7 @@ module Flowcation
   class Assets
     
     def self.from_config(config={})
-      config.each do |name, options|
+      config&.each do |name, options|
         options['folders'].each do |path, asset_folder_name|
           asset_folder_path = File.join(options['output'], asset_folder_name)
           FileUtils.mkdir_p(asset_folder_path)
@@ -10,6 +10,12 @@ module Flowcation
           copy_assets \
             source: File.join(options['input'], path), 
             target: asset_folder
+        end
+        options['files'].each do |file_name|
+          output_folder_path = File.join(options['output'])
+          FileUtils.mkdir_p(output_folder_path)
+          output_folder = File.new(output_folder_path)
+          FileUtils.cp(File.join(options['input'], file_name), output_folder) 
         end
       end
     end

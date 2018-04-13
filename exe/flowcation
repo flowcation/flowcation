@@ -1,45 +1,46 @@
 #!/usr/bin/env ruby
 require 'flowcation'
-require 'optparse' 
 
-options = {}
-option_parser = OptionParser.new do |opts|
-  opts.on("-c config","--config config", "Relative Path to Yaml Configuration File") do |config|
-    options[:config] = File.join(Dir.pwd, config)
-  end
-  opts.on("-f","--force-overwrite", "Overwrite any file flowcation attempts to generate.") do 
-    options[:force_overwrite] = true
-  end
-end
-option_parser.parse!
+config_file_name = "flowcation"
 
-cmd = :generate
-
-case ARGV[0]  
-when "generate"  
-  cmd = :generate
-when "bootstrap"  
-  cmd = :bootstrap
-else  
-  cmd = :generate
-end  
-
-puts "#{cmd} #{options[:config]}"
-
-if cmd == :generate
-  config = begin
-    YAML.load File.new(options[:config]).read
-  rescue Exception => e
-    puts "Invalid Configuration."
-    return 1
-  end
-  if config
-    if overwrite = options[:force_overwrite]
-      Flowcation::Settings.set('force-overwrite', true)
-    end
-    
-    Flowcation::generate config
-    Flowcation::Runtime.instance.write_files
-  end
+if arg = ARGV[0]  
+  config_file_name = arg
 end
 
+config_file_name += ".yml"
+
+look_up_config_paths = %w(
+.
+flowcation
+config
+config/flowcation
+).map {|p| File.join(Dir.pwd, p) }
+
+
+
+config_path = ""
+look_up_config_paths.each do |path|
+  next unless File.directory?(path)
+  entries = Dir.entries(path)
+  file = File.join(path, config_file_name)
+  config_path = file if entries.include?(config_file_name)
+end
+
+unless File.exists?(config_path)
+  puts "Config File Not Found"
+  puts "Lookup:"
+  puts look_up_config_paths
+  return 1
+end
+
+config = begin
+  YAML.load File.new(config_path).read
+rescue Exception => e
+  puts "Invalid Configuration File: #{e}"
+  return 1
+end
+
+if config
+  Flowcation::generate config
+  Flowcation::Runtime.instance.write_files
+end

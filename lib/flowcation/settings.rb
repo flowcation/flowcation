@@ -13,7 +13,7 @@ module Flowcation
     end
     
     def self.from_config(options={})
-      options.each do |k,v|
+      options&.each do |k,v|
         instance.register_setting k,v
       end
     end

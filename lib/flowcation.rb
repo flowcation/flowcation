@@ -28,6 +28,7 @@ module Flowcation
   def self.generate(config)
     Flowcation::Settings.from_config(config['flowcation'])
     Flowcation::Assets.from_config(config['assets'])
+    Flowcation::Assets.from_config(config['files'])
 
     Flowcation::Runtime.register_layouts_from_config(config['layouts'])
     Flowcation::Runtime.register_templates_from_config(config['templates'])
