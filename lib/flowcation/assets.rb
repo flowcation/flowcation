@@ -11,7 +11,7 @@ module Flowcation
             source: File.join(options['input'], path), 
             target: asset_folder
         end
-        options['files'].each do |file_name|
+        options['single-files'].each do |file_name|
           output_folder_path = File.join(options['output'])
           FileUtils.mkdir_p(output_folder_path)
           output_folder = File.new(output_folder_path)

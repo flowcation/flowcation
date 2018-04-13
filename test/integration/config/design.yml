@@ -6,7 +6,7 @@ files:
       css: css
       img: img
       vendor: vender
-    files:
+    single-files:
       - index.html
   
   # bootstrap:

@@ -1,0 +1,6 @@
+files:
+  input: frontend
+  output: public/mockup
+  folders: 
+  single-files: 
+  

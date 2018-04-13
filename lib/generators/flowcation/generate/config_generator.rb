@@ -8,6 +8,7 @@ module Flowcation
       source_root File.expand_path("../templates", __FILE__)
       def copy_config_file
         copy_file "rails.yml", "config/flowcation/rails.yml"
+        copy_file "public.yml", "config/flowcation/public.yml"
       end
     end
   end
