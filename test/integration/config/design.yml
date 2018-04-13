@@ -5,7 +5,7 @@ files:
     folders:
       css: css
       img: img
-      vendor: vender
+      vendor: vendor
     single-files:
       - index.html
   
