@@ -3,7 +3,7 @@ module Flowcation
     
     def self.from_config(config={})
       config&.each do |name, options|
-        options['folders'].each do |path, asset_folder_name|
+        options['folders']&.each do |path, asset_folder_name|
           asset_folder_path = File.join(options['output'], asset_folder_name)
           FileUtils.mkdir_p(asset_folder_path)
           asset_folder = File.new(asset_folder_path)
@@ -11,7 +11,7 @@ module Flowcation
             source: File.join(options['input'], path), 
             target: asset_folder
         end
-        options['single-files'].each do |file_name|
+        options['single-files']&.each do |file_name|
           output_folder_path = File.join(options['output'])
           FileUtils.mkdir_p(output_folder_path)
           output_folder = File.new(output_folder_path)

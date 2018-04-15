@@ -41,6 +41,13 @@ rescue Exception => e
 end
 
 if config
+  helper_file = config_path.sub('.yml', '.rb')
+  if File.exist?(helper_file)
+    existing_classes = ObjectSpace.each_object(Class).to_a
+    require helper_file
+    new_classes = ObjectSpace.each_object(Class).to_a - existing_classes
+    puts new_classes
+  end
   Flowcation::generate config
   Flowcation::Runtime.instance.write_files
 end

@@ -21,6 +21,7 @@ require 'flowcation/overwrite_exception'
 require 'flowcation/block_not_found_exception'
 require 'flowcation/substitution_not_found_exception'
 require 'flowcation/assets'
+require 'flowcation/layout_helper'
 
 module Flowcation
   DEFAULT_GENERATED_TEXT = "GENERATED_BY_FLOWCATION"

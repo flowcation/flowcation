@@ -7,7 +7,8 @@ module Flowcation
           settings['xpath'], 
           settings['substitute'], 
           settings['value'], 
-          settings['key']
+          settings['key'],
+          settings['helper']
           
         substitution.apply(doc)
       end
