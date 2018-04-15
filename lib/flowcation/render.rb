@@ -8,7 +8,9 @@ module Flowcation
       gsub("%20", " ").
       gsub("&amp;", "&").
       gsub("=&gt;", "=>").
-      gsub("-&gt;", "->")
+      gsub("-&gt;", "->").
+      gsub("&gt;", ">").
+      gsub("&lt;", "<")
     end
   end
 end

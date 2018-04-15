@@ -41,12 +41,19 @@ rescue Exception => e
 end
 
 if config
-  helper_file = config_path.sub('.yml', '.rb')
+  helper_file = config['flowcation']&['helper'] #config_path.sub('.yml', '.rb')
   if File.exist?(helper_file)
     existing_classes = ObjectSpace.each_object(Class).to_a
     require helper_file
-    new_classes = ObjectSpace.each_object(Class).to_a - existing_classes
-    puts new_classes
+    helper_class = (ObjectSpace.each_object(Class).to_a - existing_classes)[0]
+    Flowcation::Settings.set('helper', helper_class.new)
+  end
+  processor_file = config['flowcation']&['processor'] #config_path.sub('.yml', '.rb')
+  if File.exist?(processor_file)
+    existing_classes = ObjectSpace.each_object(Class).to_a
+    require processor_file
+    processor_class = (ObjectSpace.each_object(Class).to_a - existing_classes)[0]
+    Flowcation::Settings.set('processor', processor_class.new)
   end
   Flowcation::generate config
   Flowcation::Runtime.instance.write_files

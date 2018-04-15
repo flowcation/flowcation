@@ -1,11 +1,11 @@
 module Flowcation
   class Substitution
     attr_reader :name, :xpath, :type, :value
-    def initialize(name, xpath, type, value, key)
-      @name, @xpath, @type, @value, @key = name, xpath, type, value, key
+    def initialize(name, xpath, type, value, key, use_helper)
+      @name, @xpath, @type, @value, @key, @use_helper = name, xpath, type, value, key, use_helper
     end
     def value(node)
-      if helper = Settings.get('helper')
+      if @use_helper && helper = Settings.get('helper')
         helper.send(@value, node)
       else
         @value

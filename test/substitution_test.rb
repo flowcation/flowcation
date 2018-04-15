@@ -1,8 +1,8 @@
 require "test_helper"
 require 'flowcation'
 
-module LayoutHelper
-  def self.image_tag_helper(node)
+class LayoutHelper < Flowcation::LayoutHelper
+  def image_tag_helper(node)
     attributes = node.attributes.reject{|k,v| k == 'src' }.map {|k,v| v}.map {|a| "'#{a.name}' => '#{a.value}'"}.join(", ")
     %Q(<%= image_tag 'test', #{attributes} %>)
   end
@@ -15,6 +15,7 @@ class SubstitutionTest < Minitest::Test
   end
    
   def setup
+    Flowcation::Settings.set('helper', LayoutHelper.new)
     @html = %q(
 <html>
   <head>
@@ -36,7 +37,8 @@ class SubstitutionTest < Minitest::Test
       '//div[1]', 
       'content', 
       '<%= substitution %>', 
-      nil
+      nil,
+      false
     substituted = s(content_substitution.apply(@doc).to_html)
     assert_match '<%= substitution %>',  substituted
     refute_match '<div>content</div>',  substituted
@@ -48,7 +50,8 @@ class SubstitutionTest < Minitest::Test
       '//descendant::img',
       'replace_each',
       'image_tag_helper',
-      nil
+      nil,
+      true
     substituted = s(content_substitution.apply(@doc).to_html)
     assert_match "<%= image_tag 'test', 'class' => 'klazz' %>", substituted
     assert_match "<%= image_tag 'test', 'class' => 'klazz klazz-2', 'data-action' => 'click->controller#action' %>", substituted
