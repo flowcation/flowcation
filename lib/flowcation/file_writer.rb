@@ -15,6 +15,7 @@ module Flowcation
     end
     
     def write_files
+      # todo rescue/finally close file
       self.class.file_writer_collections.each do |writables|
         send(writables).each do |writeable|
           file_name = writeable.path

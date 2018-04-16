@@ -11,6 +11,24 @@ module Flowcation
             source: File.join(options['input'], path), 
             target: asset_folder
         end
+        
+        if processor = Settings.get('processor_object')
+          options['post-process']&.each do |asset_path, file_process|
+            asset_folder_path = File.join(options['output'], asset_path)
+            file_process.each do |file_name, process_method|
+              #file = File.new(File.join(asset_folder_path, file_name))
+              path = File.join(asset_folder_path, file_name)
+              puts "Post Process #{File.join(asset_folder_path, file_name)}"
+              lines = IO.readlines(path).map do |line|
+                processor.send(process_method, line)
+              end
+              File.open(path, 'w') do |file|
+                file.puts lines
+              end
+            end
+          end
+        end
+        
         options['single-files']&.each do |file_name|
           output_folder_path = File.join(options['output'])
           FileUtils.mkdir_p(output_folder_path)

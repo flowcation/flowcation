@@ -26,10 +26,4 @@ class RegistryTest < Minitest::Test
     
     assert_equal @register.settings, {a: 'b', c: 'd'}
   end
-  
-  # def test_registries
-  #   @register.register_settings @hash
-  #
-  #   assert_equal @register.settings, @hash
-  # end
 end

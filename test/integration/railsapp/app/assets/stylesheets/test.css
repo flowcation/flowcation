@@ -1,0 +1,3 @@
+.test-with-url {
+  background: asset-url('path/to/image.jpg');
+}

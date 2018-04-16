@@ -40,21 +40,9 @@ rescue Exception => e
   return 1
 end
 
-if config
-  helper_file = config['flowcation']&['helper'] #config_path.sub('.yml', '.rb')
-  if File.exist?(helper_file)
-    existing_classes = ObjectSpace.each_object(Class).to_a
-    require helper_file
-    helper_class = (ObjectSpace.each_object(Class).to_a - existing_classes)[0]
-    Flowcation::Settings.set('helper', helper_class.new)
-  end
-  processor_file = config['flowcation']&['processor'] #config_path.sub('.yml', '.rb')
-  if File.exist?(processor_file)
-    existing_classes = ObjectSpace.each_object(Class).to_a
-    require processor_file
-    processor_class = (ObjectSpace.each_object(Class).to_a - existing_classes)[0]
-    Flowcation::Settings.set('processor', processor_class.new)
-  end
+if config 
+  Flowcation::set_user_object name: 'helper', config: config, path: File.dirname(config_path)
+  Flowcation::set_user_object name: 'processor', config: config, path: File.dirname(config_path)
   Flowcation::generate config
   Flowcation::Runtime.instance.write_files
 end

@@ -27,6 +27,19 @@ require 'flowcation/processor'
 module Flowcation
   DEFAULT_GENERATED_TEXT = "GENERATED_BY_FLOWCATION"
   DEFAULT_COMMENT = "<!-- ::comment:: -->"
+  
+  def self.set_user_object(name:, config:, path:)
+    if settings = config['flowcation']
+      file = File.join(path, settings[name])
+      if File.exist?(file)
+        existing_classes = ObjectSpace.each_object(Class).to_a
+        require file
+        helper_class = (ObjectSpace.each_object(Class).to_a - existing_classes)[0]
+        Flowcation::Settings.set(name + '_object', helper_class.new)
+      end
+    end
+  end
+  
   def self.generate(config)
     Flowcation::Settings.from_config(config['flowcation'])
     Flowcation::Assets.from_config(config['assets'])

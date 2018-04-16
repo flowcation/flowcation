@@ -1,5 +1,3 @@
 # Integration Test
 
-## Executable
-
-Run `flowcation rails` from this folder.  
+Execute 'flowcation_rails_integration.rb'

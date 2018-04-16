@@ -5,7 +5,7 @@ module Flowcation
       @name, @xpath, @type, @value, @key, @use_helper = name, xpath, type, value, key, use_helper
     end
     def value(node)
-      if @use_helper && helper = Settings.get('helper')
+      if @use_helper && helper = Settings.get('helper_object')
         helper.send(@value, node)
       else
         @value

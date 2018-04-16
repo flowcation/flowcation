@@ -1,0 +1,18 @@
+files: 
+  copy-resources:
+    input: './test/integration/example'
+    output: './test/integration/railsapp/public/mockup'
+    folders:
+      css: css
+      img: img
+      vendor: vendor
+    single-files:
+      - index.html
+  
+  # bootstrap:
+  #   input: './example/vendor/bootstrap'
+  #   output: './rails/output/assets'
+  #   folders:
+  #     css: stylesheets
+  #     js: javascripts
+   

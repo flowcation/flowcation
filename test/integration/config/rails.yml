@@ -2,47 +2,51 @@ flowcation:
   comment: '<%#= ::comment:: %>'
   generated-line: "Generated File"
   #force-overwrite: true 
+  processor: processor.rb
 
 
 assets: 
   css:
-    input: './example'
-    output: './rails/output/assets'
+    input: './test/integration/example'
+    output: './test/integration/railsapp/app/assets'
     folders:
       css: stylesheets
+    post-process:
+      stylesheets:
+        test.css: urls
   bootstrap:
-    input: './example/vendor/bootstrap'
-    output: './rails/output/assets'
+    input: './test/integration/example/vendor/bootstrap'
+    output: './test/integration/railsapp/app/assets'
     folders:
       css: stylesheets
       js: javascripts
   font-awesome:
-    input: './example/vendor/font-awesome'
-    output: './rails/output/assets'
+    input: './test/integration/example/vendor/font-awesome'
+    output: './test/integration/railsapp/app/assets'
     folders:
       css: stylesheets
       fonts: fonts
   jquery:
-    input: './example/vendor'
-    output: './rails/output/assets'
+    input: './test/integration/example/vendor'
+    output: './test/integration/railsapp/app/assets'
     folders:
       jquery: javascripts
   simple-line-icons:
-    input: './example/vendor/simple-line-icons'
-    output: './rails/output/assets'
+    input: './test/integration/example/vendor/simple-line-icons'
+    output: './test/integration/railsapp/app/assets'
     folders:
       css: stylesheets
       fonts: fonts
   images:
-    input: './example'
-    output: './rails/output/assets'
+    input: './test/integration/example'
+    output: './test/integration/railsapp/app/assets'
     folders:
       img: images
    
 layouts: 
   application:
-    file: './example/index.html'
-    path: './rails/output/views/layouts/application.html.erb'
+    file: './test/integration/example/index.html'
+    path: './test/integration/railsapp/app/views/layouts/application.html.erb'
     format: '<%= yield :::name:: %>'
     yields: 
       content:
@@ -71,8 +75,8 @@ layouts:
 
 templates:
   home:
-    file: './example/index.html'
-    path: './rails/output/views/pages/show.html.erb'
+    file: './test/integration/example/index.html'
+    path: './test/integration/railsapp/app/views/pages/show.html.erb'
     layout: application
     format: "<%= content_for ::name:: do %>\n::content::\n<% end %>\n\n"
     content_for: 
@@ -108,9 +112,9 @@ templates:
         value: '<%= render partial: "shared/call_to_action" %>'
 partials:
   feature-icon:
-    file: './example/index.html'
+    file: './test/integration/example/index.html'
     xpath: '//section[contains(@class,"features-icons")][1]/div[1]/div[1]/div[1]'
-    path: './rails/output/views/feature_icons/_icon.html.erb'
+    path: './test/integration/railsapp/app/views/feature_icons/_icon.html.erb'
     type: 'complete' # or 'content'
     substitutions:
       text:
@@ -127,9 +131,9 @@ partials:
         key: 'class'
         value: '<%= feature_icon.icon %> m-auto text-primary'
   showcase:
-    file: './example/index.html'
+    file: './test/integration/example/index.html'
     xpath: '//section[contains(@class,"showcase")][1]/div[1]/div[1]'
-    path: './rails/output/views/showcases/_showcase.html.erb'
+    path: './test/integration/railsapp/app/views/showcases/_showcase.html.erb'
     type: 'complete' # or 'content'
     substitutions:
       title:
@@ -146,9 +150,9 @@ partials:
         key: "style"
         value: 'background-image: image-url("<%= showcase.image&.url %>");'
   testimonial:
-    file: './example/index.html'
+    file: './test/integration/example/index.html'
     xpath: '//section[contains(@class,"testimonials")][1]/div[1]/div[1]/div[1]'
-    path: './rails/output/views/testimonials/_testimonial.html.erb'
+    path: './test/integration/railsapp/app/views/testimonials/_testimonial.html.erb'
     type: 'complete' # or 'content'
     substitutions:
       name:
@@ -165,9 +169,9 @@ partials:
         substitute: 'content'
         value: '<%= testimonial.text %>'
   call-to-action:
-    file: './example/index.html'
+    file: './test/integration/example/index.html'
     xpath: '//section[contains(@class,"call-to-action")][1]'
-    path: './rails/output/views/shared/_call_to_action.html.erb'
+    path: './test/integration/railsapp/app/views/shared/_call_to_action.html.erb'
     type: 'content'
       
     
