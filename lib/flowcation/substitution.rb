@@ -19,6 +19,7 @@ module Flowcation
       
       element = doc.at_xpath(@xpath)
       raise SubstitutionNotFoundException.build(xpath: @xpath, name: @name) unless element
+      #self.class.build_substitution_type(@type).substitute(doc)
       case @type
       when 'content'
         doc.at_xpath(@xpath).content = value(doc.at_xpath(@xpath))
@@ -27,10 +28,10 @@ module Flowcation
           node.content = value(node)
         end
       when 'attribute'
-        doc.at_xpath(@xpath).attributes[@key].value = value(doc.at_xpath(@xpath))
+        doc.at_xpath(@xpath)[@key] = value(doc.at_xpath(@xpath))
       when 'attribute_collection'
         doc.xpath(@xpath).each do |node|
-          node.attributes[@key].value = value(node)
+          node[@key] = value(node)
         end
       when 'replace'
         doc.at_xpath(@xpath).replace Nokogiri::XML::Text.new(value(doc.at_xpath(@xpath)), doc.document)

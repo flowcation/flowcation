@@ -15,7 +15,7 @@ class SubstitutionTest < Minitest::Test
   end
    
   def setup
-    Flowcation::Settings.set('helper', LayoutHelper.new)
+    Flowcation::Settings.set('helper_object', LayoutHelper.new)
     @html = %q(
 <html>
   <head>
