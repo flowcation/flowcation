@@ -18,19 +18,23 @@ module Flowcation
       doc = @doc.dup
       substitute(doc)
       erb = ""
-      blocks&.each do |block|
-        block_doc = doc.at_xpath(block.xpath)
-        raise BlockNotFoundException.build(xpath: block.xpath, path: self.path) unless block_doc
-        content = case block.type 
-          when 'content'
-            doc.at_xpath(block.xpath).inner_html
-          when 'replace_collection'
-            doc.xpath(block.xpath).to_html
-        end
+      if blocks
+        blocks.each do |block|
+          block_doc = doc.at_xpath(block.xpath)
+          raise BlockNotFoundException.build(xpath: block.xpath, path: self.path) unless block_doc
+          content = case block.type 
+            when 'content'
+              doc.at_xpath(block.xpath).inner_html
+            when 'replace_collection'
+              doc.xpath(block.xpath).to_html
+          end
         
-        erb << @format.
-          sub("::name::", block.name).
-          sub("::content::", content)
+          erb << @format.
+            sub("::name::", block.name).
+            sub("::content::", content)
+        end
+      else
+        erb = doc.to_html
       end
       Render.sanitize(erb)
     end
