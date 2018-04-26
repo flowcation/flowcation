@@ -9,7 +9,7 @@ module Flowcation
       @layout_name = layout
       @substitutions = substitutions
       @format = format
-      content_for_blocks.each do |name, options|
+      content_for_blocks&.each do |name, options|
         register_block Flowcation::Block.new(name, options)
       end
     end
@@ -18,7 +18,7 @@ module Flowcation
       doc = @doc.dup
       substitute(doc)
       erb = ""
-      blocks.each do |block|
+      blocks&.each do |block|
         block_doc = doc.at_xpath(block.xpath)
         raise BlockNotFoundException.build(xpath: block.xpath, path: self.path) unless block_doc
         content = case block.type 
