@@ -18,7 +18,7 @@ module Flowcation
       doc = @doc.dup
       substitute(doc)
       erb = ""
-      if blocks
+      if !blocks.empty?
         blocks.each do |block|
           block_doc = doc.at_xpath(block.xpath)
           raise BlockNotFoundException.build(xpath: block.xpath, path: self.path) unless block_doc
