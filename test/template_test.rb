@@ -22,13 +22,14 @@ class TemplateTest < Minitest::Test
   
   def test_template
     template = Flowcation::Template.new \
-      Nokogiri::HTML(@html).xpath("//body"), 
+      Nokogiri::HTML(@html).xpath("//html"), 
       nil, 
       'path', 
       nil, 
       [],
       nil
-
+      
+      puts template.content
     assert_equal @html, template.content
   end
 end

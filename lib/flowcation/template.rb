@@ -41,7 +41,7 @@ module Flowcation
     
     def self.from_config(options={})
       new \
-        Nokogiri::HTML(File.new(options['file'])).xpath("//body"), 
+        Nokogiri::HTML(File.new(options['file'])).xpath("//html"), 
         options['layout'], 
         options['path'], 
         options['content_for'], 
