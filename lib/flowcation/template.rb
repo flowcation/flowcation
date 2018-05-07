@@ -25,7 +25,7 @@ module Flowcation
           content = case block.type 
             when 'content'
               doc.at_xpath(block.xpath).inner_html
-            when 'complete'
+            when 'replace'
               doc.at_xpath(block.xpath).inner_html
             when 'replace_collection'
               doc.xpath(block.xpath).to_html
