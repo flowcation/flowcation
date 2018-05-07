@@ -74,6 +74,9 @@ layouts:
         value: '<%= site_title %>'
 
 templates:
+  home-no-layout:
+    file: './test/integration/example/index.html'
+    path: './test/integration/railsapp/app/views/pages/show-no-layout.html.erb'
   home:
     file: './test/integration/example/index.html'
     path: './test/integration/railsapp/app/views/pages/show.html.erb'
