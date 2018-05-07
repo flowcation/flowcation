@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    flowcation (0.3.5)
+    flowcation (0.3.6)
       activesupport (~> 5.1.5)
       nokogiri (~> 1.8.2)
 

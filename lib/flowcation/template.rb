@@ -26,7 +26,7 @@ module Flowcation
             when 'content'
               doc.at_xpath(block.xpath).inner_html
             when 'replace'
-              doc.at_xpath(block.xpath).inner_html
+              doc.at_xpath(block.xpath).to_html
             when 'replace_collection'
               doc.xpath(block.xpath).to_html
           end
