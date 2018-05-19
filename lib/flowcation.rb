@@ -29,8 +29,8 @@ module Flowcation
   DEFAULT_COMMENT = "<!-- ::comment:: -->"
   
   def self.set_user_object(name:, config:, path:)
-    return unless settings[name]
     if settings = config['flowcation']
+      return unless settings[name]
       file = File.join(path, settings[name])
       if File.exist?(file)
         existing_classes = ObjectSpace.each_object(Class).to_a
